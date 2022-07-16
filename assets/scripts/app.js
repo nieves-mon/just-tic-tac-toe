@@ -1,3 +1,5 @@
+window.addEventListener("load", startGame);
+
 const header = document.querySelector("#current");
 const cells = document.querySelectorAll(".cell");
 
@@ -8,6 +10,17 @@ const boardStates = [
         ["", "", ""],
         ["", "", ""]
     ]
+];
+
+const winningCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
 ];
 
 function startGame() {
@@ -43,7 +56,7 @@ function setMark() {
         } else {
             span.classList.add("fa-o");
         }
-        
+
         playerTurn(this);
     }
 }
@@ -52,7 +65,7 @@ function updateBoard(index) {
     const board = boardStates[boardStates.length - 1].map((row) => row.map((el) => el));
     let firstIdx;
     let secondIdx;
-    
+
     if(index >= 6) {
         firstIdx = 2;
         secondIdx = index - 6;
@@ -72,6 +85,12 @@ function updateBoard(index) {
 function playerTurn(cell) {
     updateBoard(Array.from(cells).indexOf(cell));
 
+    if(isPlayerWinner()) {
+        header.textContent = currentPlayer + " Wins!";
+        endGame();
+        return;
+    }
+
     if(isDraw()) {
         header.textContent = "It's a draw!";
         endGame();
@@ -89,4 +108,16 @@ function isDraw() {
     return !latestBoard.some((row) => row.some(empty));
 }
 
-startGame();
+function isPlayerWinner() {
+    const latestBoard = boardStates[boardStates.length - 1].flat();
+
+    for(let i = 0; i < winningCombos.length; i++) {
+        if(latestBoard[winningCombos[i][0]] === currentPlayer
+            && latestBoard[winningCombos[i][1]] === currentPlayer
+            && latestBoard[winningCombos[i][2]] === currentPlayer) {
+                return true;
+        }
+    }
+
+    return false;
+}
