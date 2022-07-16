@@ -8,10 +8,16 @@ body {
     width: 100vw;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+/*
+    =========================================
+    Container
+    ========================================= 
+*/
 .main-container {
     width: 100%;
     height: auto;
@@ -19,6 +25,11 @@ body {
     justify-content: center;
 }
 
+/*
+    =========================================
+    Tic Tac Toe Board
+    ========================================= 
+*/
 .tic-tac-toe {
     width: 500px;
     height: 500px;
@@ -27,6 +38,11 @@ body {
     grid-template-rows: repeat(3, 1fr);
 }
 
+/*
+    =========================================
+    Cells
+    ========================================= 
+*/
 .cell {
     border: 1px solid black;
     display: flex;
@@ -48,4 +64,13 @@ body {
 
 .left {
     border-left: none;
+}
+
+/*
+    =========================================
+    Typography
+    ========================================= 
+*/
+.header {
+    font-size: 3em;
 }
