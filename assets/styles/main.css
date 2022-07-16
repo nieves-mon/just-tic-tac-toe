@@ -13,20 +13,39 @@ body {
 }
 
 .main-container {
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .tic-tac-toe {
-    height: 100%;
+    width: 500px;
+    height: 500px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
 
-.cell{
+.cell {
     border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.top {
+    border-top: none;
+}
+
+.right {
+    border-right: none;
+}
+
+.bottom {
+    border-bottom: none;
+}
+
+.left {
+    border-left: none;
 }
