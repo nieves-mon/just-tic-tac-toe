@@ -1,9 +1,25 @@
+const header = document.querySelector("#current");
 const cells = document.querySelectorAll(".cell");
 for(let i = 0; i < cells.length; i++) {
     cells[i].addEventListener("click", setMark);
 }
 
 let currentPlayer = "X";
+const boardStates = [
+    [
+        [''], [''], [''],
+        [''], [''], [''],
+        [''], [''], ['']
+    ]
+];
+
+function changePlayer() {
+    if(currentPlayer === "X") {
+        currentPlayer = "O";
+    } else {
+        currentPlayer = "X";
+    }
+}
 
 function setMark() {
     const span = this.childNodes[1];
@@ -13,10 +29,24 @@ function setMark() {
 
         if(currentPlayer === "X") {
             span.classList.add("fa-xmark");
-            currentPlayer = "O";
         } else {
             span.classList.add("fa-o");
-            currentPlayer = "X";
         }
+
+        //Get most recent state of the board
+        const board = boardStates[boardStates.length - 1];
+
+        //Update board
+        board[Array.from(cells).indexOf(this)] = currentPlayer;
+        boardStates.push(board);
+        
+        playerTurn();
     }
 }
+
+function playerTurn() {
+    changePlayer();
+    header.textContent = currentPlayer + "'s Turn";
+}
+
+header.textContent = currentPlayer + "'s Turn";
