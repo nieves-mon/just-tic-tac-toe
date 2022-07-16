@@ -7,9 +7,9 @@ for(let i = 0; i < cells.length; i++) {
 let currentPlayer = "X";
 const boardStates = [
     [
-        [''], [''], [''],
-        [''], [''], [''],
-        [''], [''], ['']
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""]
     ]
 ];
 
@@ -36,8 +36,23 @@ function setMark() {
         //Get most recent state of the board
         const board = boardStates[boardStates.length - 1];
 
+        const index = Array.from(cells).indexOf(this);
+        let firstIdx;
+        let secondIdx;
+        
+        if(index >= 6) {
+            firstIdx = 2;
+            secondIdx = index - 6;
+        } else if(index >= 3) {
+            firstIdx = 1;
+            secondIdx = index - 3;
+        } else {
+            firstIdx = 0;
+            secondIdx = index;
+        }
+
         //Update board
-        board[Array.from(cells).indexOf(this)] = currentPlayer;
+        board[firstIdx][secondIdx] = currentPlayer;
         boardStates.push(board);
         
         playerTurn();
