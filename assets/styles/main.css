@@ -21,6 +21,13 @@ body {
     =========================================
 */
 .main-container {
+    max-width: 1000px;
+    width: 100%;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.board-container {
     width: 100%;
     height: auto;
     display: flex;
@@ -33,8 +40,8 @@ body {
     =========================================
 */
 .tic-tac-toe {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -73,9 +80,19 @@ body {
     Typography
     =========================================
 */
-.header {
-    font-size: 3em;
+.title,
+#current {
     font-family: 'Roboto Mono', monospace;
+    width: fit-content;
+}
+
+.title {
+    font-size: 2em;
+}
+
+#current {
+    font-size: 3em;
+    margin: 0 auto;
 }
 
 .mark {
