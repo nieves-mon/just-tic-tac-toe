@@ -11,6 +11,8 @@ const boardStates = [
         ["", "", ""]
     ]
 ];
+let currentState;
+let currentStateIdx;
 
 const winningCombos = [
     [0, 1, 2],
@@ -35,6 +37,11 @@ function endGame() {
     for(let i = 0; i < cells.length; i++) {
         cells[i].removeEventListener("click", setMark);
     }
+
+    currentState = boardStates[boardStates.length - 1].flat();
+    currentStateIdx = boardStates.length - 1;
+    previousBtn.addEventListener("click", previous);
+    nextBtn.addEventListener("click", next);
 }
 
 function changePlayer() {
@@ -127,6 +134,8 @@ function isPlayerWinner() {
 */
 const spans = document.querySelectorAll(".mark");
 const restartBtn = document.querySelector("#restart-btn");
+const previousBtn = document.querySelector("#previous-btn");
+const nextBtn = document.querySelector("#next-btn");
 
 function restart() {
     boardStates.splice(1, boardStates.length - 1);
@@ -138,5 +147,40 @@ function restart() {
 
     startGame();
 }
-
 restartBtn.addEventListener("click", restart);
+
+function previous() {
+    const previousState = boardStates[currentStateIdx - 1].flat();
+
+    for(let i = 0; i < 9; i++) {
+        if(currentState[i] !== previousState[i]) {
+            if(currentState[i] === "X") {
+                spans[i].classList.remove("fa-xmark");
+            } else {
+                spans[i].classList.remove("fa-o");
+            }
+            break;
+        }
+    }
+
+    currentStateIdx--;
+    currentState = boardStates[currentStateIdx].flat();
+}
+
+function next() {
+    const nextState = boardStates[currentStateIdx + 1].flat();
+
+    for(let i = 0; i < 9; i++) {
+        if(currentState[i] !== nextState[i]) {
+            if(nextState[i] === "X") {
+                spans[i].classList.add("fa-xmark");
+            } else {
+                spans[i].classList.add("fa-o");
+            }
+            break;
+        }
+    }
+
+    currentStateIdx++;
+    currentState = boardStates[currentStateIdx].flat();
+}
