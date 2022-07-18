@@ -80,17 +80,17 @@ header {
     justify-self: center;
 }
 
-#restart {
+#restart-btn {
     grid-area: restart;
     justify-self: center;
 }
 
-#previous {
+#previous-btn {
     grid-area: previous;
     justify-self: start;
 }
 
-#next {
+#next-btn {
     grid-area: next;
     justify-self: end;
 }
