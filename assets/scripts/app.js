@@ -48,9 +48,7 @@ function changePlayer() {
 function setMark() {
     const span = this.childNodes[1];
 
-    if(span.classList.length === 1) {
-        span.classList.add("fa-solid");
-
+    if(span.classList.length === 2) {
         if(currentPlayer === "X") {
             span.classList.add("fa-xmark");
         } else {
@@ -121,3 +119,24 @@ function isPlayerWinner() {
 
     return false;
 }
+
+/*
+    =========================================
+    Buttons
+    =========================================
+*/
+const spans = document.querySelectorAll(".mark");
+const restartBtn = document.querySelector("#restart-btn");
+
+function restart() {
+    boardStates.splice(1, boardStates.length - 1);
+
+    spans.forEach((span, i) => {
+        span.classList.remove("fa-xmark");
+        span.classList.remove("fa-o");
+    });
+
+    startGame();
+}
+
+restartBtn.addEventListener("click", restart);
