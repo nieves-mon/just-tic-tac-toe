@@ -137,6 +137,24 @@ header {
 
 /*
     =========================================
+    Buttons
+    =========================================
+*/
+.btn {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    font-size: 1em;
+}
+
+.btn:hover > span,
+.btn:hover > i,
+.btn:hover {
+    cursor: pointer;
+}
+
+/*
+    =========================================
     Typography
     =========================================
 */
@@ -162,11 +180,4 @@ header {
 
 .mark {
     font-size: 6rem;
-}
-
-.btn {
-    display: flex;
-    align-items: flex-end;
-    gap: 0.5rem;
-    font-size: 1em;
 }
