@@ -150,6 +150,8 @@ function restart() {
 restartBtn.addEventListener("click", restart);
 
 function previous() {
+    if(currentStateIdx === 0) {return;}
+
     const previousState = boardStates[currentStateIdx - 1].flat();
 
     for(let i = 0; i < 9; i++) {
@@ -168,6 +170,8 @@ function previous() {
 }
 
 function next() {
+    if(currentStateIdx === boardStates.length - 1) {return;}
+
     const nextState = boardStates[currentStateIdx + 1].flat();
 
     for(let i = 0; i < 9; i++) {
