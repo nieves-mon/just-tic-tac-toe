@@ -1,9 +1,7 @@
-window.addEventListener("load", startGame);
-
 const header = document.querySelector("#current");
 const cells = document.querySelectorAll(".cell");
 
-let currentPlayer = "X";
+let currentPlayer;
 const boardStates = [
     [
         ["", "", ""],
@@ -11,6 +9,7 @@ const boardStates = [
         ["", "", ""]
     ]
 ];
+
 let currentState;
 let currentStateIdx;
 
@@ -25,6 +24,28 @@ const winningCombos = [
     [2, 4, 6]
 ];
 
+const choosePopup = document.querySelector(".popup");
+const overlay = document.querySelector(".overlay");
+const main = document.querySelector(".main-container");
+const chooseXBtn = document.querySelector("#player-x");
+const chooseOBtn = document.querySelector("#player-o");
+
+function choosePlayer() {
+    if(this.id === "player-x") {
+        currentPlayer = "X";
+    } else {
+        currentPlayer= "O";
+    }
+
+    choosePopup.classList.add("hide");
+    overlay.classList.add("hide");
+    main.classList.remove("hide");
+
+    startGame();
+}
+chooseXBtn.addEventListener("click", choosePlayer);
+chooseOBtn.addEventListener("click", choosePlayer);
+
 function startGame() {
     header.textContent = currentPlayer + "'s Turn";
 
@@ -34,14 +55,18 @@ function startGame() {
 }
 
 function endGame() {
+    console.log(boardStates);
     for(let i = 0; i < cells.length; i++) {
         cells[i].removeEventListener("click", setMark);
     }
 
-    currentState = boardStates[boardStates.length - 1].flat();
     currentStateIdx = boardStates.length - 1;
+    currentState = boardStates[currentStateIdx].flat();
     previousBtn.addEventListener("click", previous);
     nextBtn.addEventListener("click", next);
+    console.log(boardStates);
+    console.log(currentStateIdx);
+    console.log(currentState);
 }
 
 function changePlayer() {
@@ -150,9 +175,12 @@ function restart() {
 restartBtn.addEventListener("click", restart);
 
 function previous() {
-    if(currentStateIdx === 0) {return;}
+    if(currentStateIdx === 0) {
+        return;
+    }
 
     const previousState = boardStates[currentStateIdx - 1].flat();
+    console.log(currentState);
 
     for(let i = 0; i < 9; i++) {
         if(currentState[i] !== previousState[i]) {
