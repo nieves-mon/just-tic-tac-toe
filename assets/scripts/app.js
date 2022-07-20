@@ -172,7 +172,7 @@ const nextBtn = document.querySelector("#next-btn");
 function restart() {
     boardStates.splice(1, boardStates.length - 1);
 
-    spans.forEach((span, i) => {
+    spans.forEach((span) => {
         span.classList.remove("fa-xmark");
         span.classList.remove("fa-o");
     });
