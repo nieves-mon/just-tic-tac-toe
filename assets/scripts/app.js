@@ -1,7 +1,6 @@
 const header = document.querySelector("#current");
 const cells = document.querySelectorAll(".cell");
 
-let currentPlayer;
 const boardStates = [
     [
         ["", "", ""],
@@ -30,6 +29,8 @@ const main = document.querySelector(".main-container");
 const chooseXBtn = document.querySelector("#player-x");
 const chooseOBtn = document.querySelector("#player-o");
 
+let currentPlayer;
+
 function choosePlayer() {
     if(this.id === "player-x") {
         currentPlayer = "X";
@@ -55,18 +56,17 @@ function startGame() {
 }
 
 function endGame() {
-    console.log(boardStates);
     for(let i = 0; i < cells.length; i++) {
         cells[i].removeEventListener("click", setMark);
     }
 
+    changePlayer();
+
     currentStateIdx = boardStates.length - 1;
     currentState = boardStates[currentStateIdx].flat();
+
     previousBtn.addEventListener("click", previous);
     nextBtn.addEventListener("click", next);
-    console.log(boardStates);
-    console.log(currentStateIdx);
-    console.log(currentState);
 }
 
 function changePlayer() {
@@ -131,6 +131,12 @@ function playerTurn(cell) {
     header.textContent = currentPlayer + "'s Turn";
 }
 
+
+/*
+    =========================================
+    Game Outcomes
+    =========================================
+*/
 function isDraw() {
     const latestBoard = boardStates[boardStates.length - 1];
     const empty = (el) => el === "";
@@ -151,6 +157,7 @@ function isPlayerWinner() {
 
     return false;
 }
+
 
 /*
     =========================================
