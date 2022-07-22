@@ -212,6 +212,16 @@ header {
     cursor: pointer;
 }
 
+.disabled {
+    color: gray;
+}
+
+.disabled:hover > span,
+.disabled:hover > i,
+.disabled:hover {
+    cursor: default;
+}
+
 /*
     =========================================
     Typography

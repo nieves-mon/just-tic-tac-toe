@@ -69,6 +69,7 @@ function endGame() {
     currentStateIdx = boardStates.length - 1;
     currentState = boardStates[currentStateIdx].flat();
 
+    nextBtn.classList.add("disabled");
     unhide(previousBtn);
     unhide(nextBtn);
 
@@ -189,8 +190,10 @@ function restart() {
 restartBtn.addEventListener("click", restart);
 
 function previous() {
-    if(currentStateIdx === 0) {
-        return;
+    if(currentStateIdx === 0) {return}
+
+    if(Array.from(nextBtn.classList).includes("disabled")) {
+        nextBtn.classList.remove("disabled");
     }
 
     const previousState = boardStates[currentStateIdx - 1].flat();
