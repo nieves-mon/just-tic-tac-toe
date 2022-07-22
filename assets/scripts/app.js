@@ -53,6 +53,9 @@ function startGame() {
     for(let i = 0; i < cells.length; i++) {
         cells[i].addEventListener("click", setMark);
     }
+
+    previousBtn.classList.add("hide");
+    nextBtn.classList.add("hide");
 }
 
 function endGame() {
@@ -64,6 +67,9 @@ function endGame() {
 
     currentStateIdx = boardStates.length - 1;
     currentState = boardStates[currentStateIdx].flat();
+
+    previousBtn.classList.remove("hide");
+    nextBtn.classList.remove("hide");
 
     previousBtn.addEventListener("click", previous);
     nextBtn.addEventListener("click", next);
