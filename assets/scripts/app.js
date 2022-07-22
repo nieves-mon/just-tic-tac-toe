@@ -38,9 +38,10 @@ function choosePlayer() {
         currentPlayer= "O";
     }
 
-    choosePopup.classList.add("hide");
-    board.classList.remove("hide");
-    btnContainer.classList.remove("hide");
+    hide(choosePopup);
+    unhide(board);
+    unhide(btnContainer);
+    unhide(header);
 
     startGame();
 }
@@ -48,14 +49,14 @@ chooseXBtn.addEventListener("click", choosePlayer);
 chooseOBtn.addEventListener("click", choosePlayer);
 
 function startGame() {
+    hide(previousBtn);
+    hide(nextBtn);
+
     header.textContent = currentPlayer + "'s Turn";
 
     for(let i = 0; i < cells.length; i++) {
         cells[i].addEventListener("click", setMark);
     }
-
-    previousBtn.classList.add("hide");
-    nextBtn.classList.add("hide");
 }
 
 function endGame() {
@@ -68,8 +69,8 @@ function endGame() {
     currentStateIdx = boardStates.length - 1;
     currentState = boardStates[currentStateIdx].flat();
 
-    previousBtn.classList.remove("hide");
-    nextBtn.classList.remove("hide");
+    unhide(previousBtn);
+    unhide(nextBtn);
 
     previousBtn.addEventListener("click", previous);
     nextBtn.addEventListener("click", next);
@@ -228,4 +229,20 @@ function next() {
 
     currentStateIdx++;
     currentState = boardStates[currentStateIdx].flat();
+}
+
+
+/*
+    =========================================
+    Transition
+    =========================================
+*/
+function unhide(element) {
+    element.classList.remove("hide");
+    setTimeout(() => {element.style.opacity = 1}, 500);
+}
+
+function hide(element) {
+    element.style.opacity = 0;
+    setTimeout(() => {element.classList.add("hide")}, 500);
 }
