@@ -153,16 +153,15 @@ header {
     =========================================
 */
 .strike {
+    background: rgba(30, 218, 99, 0.918);
     position: absolute;
     border-radius: 5px;
-    /* transition: all ease 0.3s; */
 }
 
 #horizontal {
     left: 2%;
     width: 0;
     height: 10px;
-    background: black;
     transition: width 0.3s;
 }
 
@@ -170,7 +169,6 @@ header {
     top: 2%;
     width: 10px;
     height: 0;
-    background: black;
     transition: height 0.3s;
 }
 
@@ -178,7 +176,6 @@ header {
     top: 0;
     height: 10px;
     transform-origin: left;
-    background: black;
     transition: width 0.3s;
 }
 

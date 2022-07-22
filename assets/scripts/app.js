@@ -160,6 +160,10 @@ function isPlayerWinner() {
         if(latestBoard[winningCombos[i][0]] === currentPlayer
             && latestBoard[winningCombos[i][1]] === currentPlayer
             && latestBoard[winningCombos[i][2]] === currentPlayer) {
+                spans[winningCombos[i][0]].style.color = "rgba(30, 218, 99, 0.918)";
+                spans[winningCombos[i][1]].style.color = "rgba(30, 218, 99, 0.918)";
+                spans[winningCombos[i][2]].style.color = "rgba(30, 218, 99, 0.918)";
+
                 winningIdx = i;
                 strike(winningIdx);
                 return true;
@@ -238,10 +242,15 @@ const previousBtn = document.querySelector("#previous-btn");
 const nextBtn = document.querySelector("#next-btn");
 
 function restart() {
-    boardStates.splice(1, boardStates.length - 1);
     unstrike(winningIdx);
+    // spans[winningCombos[winningIdx][0]].style.color = null;
+    // spans[winningCombos[winningIdx][2]].style.color = null;
+    // spans[winningCombos[winningIdx][1]].style.color = null;
+
+    boardStates.splice(1, boardStates.length - 1);
 
     spans.forEach((span) => {
+        span.style.color = null;
         span.classList.remove("fa-xmark");
         span.classList.remove("fa-o");
     });
