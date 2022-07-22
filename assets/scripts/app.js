@@ -24,8 +24,8 @@ const winningCombos = [
 ];
 
 const choosePopup = document.querySelector(".popup");
-const overlay = document.querySelector(".overlay");
-const main = document.querySelector(".main-container");
+const board = document.querySelector(".board-container");
+const btnContainer = document.querySelector(".btn-container");
 const chooseXBtn = document.querySelector("#player-x");
 const chooseOBtn = document.querySelector("#player-o");
 
@@ -38,9 +38,10 @@ function choosePlayer() {
         currentPlayer= "O";
     }
 
-    choosePopup.classList.add("hide");
-    overlay.classList.add("hide");
-    main.classList.remove("hide");
+    hide(choosePopup);
+    unhide(board);
+    unhide(btnContainer);
+    unhide(header);
 
     startGame();
 }
@@ -48,14 +49,14 @@ chooseXBtn.addEventListener("click", choosePlayer);
 chooseOBtn.addEventListener("click", choosePlayer);
 
 function startGame() {
+    hide(previousBtn);
+    hide(nextBtn);
+
     header.textContent = currentPlayer + "'s Turn";
 
     for(let i = 0; i < cells.length; i++) {
         cells[i].addEventListener("click", setMark);
     }
-
-    previousBtn.classList.add("hide");
-    nextBtn.classList.add("hide");
 }
 
 function endGame() {
@@ -68,8 +69,9 @@ function endGame() {
     currentStateIdx = boardStates.length - 1;
     currentState = boardStates[currentStateIdx].flat();
 
-    previousBtn.classList.remove("hide");
-    nextBtn.classList.remove("hide");
+    nextBtn.classList.add("disabled");
+    unhide(previousBtn);
+    unhide(nextBtn);
 
     previousBtn.addEventListener("click", previous);
     nextBtn.addEventListener("click", next);
@@ -188,12 +190,12 @@ function restart() {
 restartBtn.addEventListener("click", restart);
 
 function previous() {
-    if(currentStateIdx === 0) {
-        return;
+    if(Array.from(nextBtn.classList).includes("disabled")) {
+        nextBtn.classList.remove("disabled");
+        nextBtn.addEventListener("click", next);
     }
 
     const previousState = boardStates[currentStateIdx - 1].flat();
-    console.log(currentState);
 
     for(let i = 0; i < 9; i++) {
         if(currentState[i] !== previousState[i]) {
@@ -208,10 +210,18 @@ function previous() {
 
     currentStateIdx--;
     currentState = boardStates[currentStateIdx].flat();
+
+    if(currentStateIdx === 0) {
+        previousBtn.classList.add("disabled");
+        previousBtn.removeEventListener("click", previous);
+    }
 }
 
 function next() {
-    if(currentStateIdx === boardStates.length - 1) {return;}
+    if(Array.from(previousBtn.classList).includes("disabled")) {
+        previousBtn.classList.remove("disabled");
+        previousBtn.addEventListener("click", previous);
+    }
 
     const nextState = boardStates[currentStateIdx + 1].flat();
 
@@ -228,4 +238,25 @@ function next() {
 
     currentStateIdx++;
     currentState = boardStates[currentStateIdx].flat();
+
+    if(currentStateIdx === boardStates.length - 1) {
+        nextBtn.classList.add("disabled");
+        nextBtn.removeEventListener("click", next);
+    }
+}
+
+
+/*
+    =========================================
+    Transition
+    =========================================
+*/
+function unhide(element) {
+    element.classList.remove("hide");
+    setTimeout(() => {element.style.opacity = 1}, 500);
+}
+
+function hide(element) {
+    element.style.opacity = 0;
+    setTimeout(() => {element.classList.add("hide")}, 500);
 }
