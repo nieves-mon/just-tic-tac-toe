@@ -205,12 +205,25 @@ function strike(index) {
         case 5:
             vertical.style.left = "82%";
             vertical.style.height = "95%";
+            break;
         case 6:
             diagonalLeft.style.width = "130%";
             break;
         case 7:
             diagonalRight.style.width = "130%";
             break;
+    }
+}
+
+function unstrike(index) {
+    if(index < 3) {
+        horizontal.style.width = 0;
+    } else if(index < 6) {
+        vertical.style.height = 0;
+    } else if(index === 6) {
+        diagonalLeft.style.width = 0;
+    } else {
+        diagonalRight.style.width = 0;
     }
 }
 
@@ -226,6 +239,7 @@ const nextBtn = document.querySelector("#next-btn");
 
 function restart() {
     boardStates.splice(1, boardStates.length - 1);
+    unstrike(winningIdx);
 
     spans.forEach((span) => {
         span.classList.remove("fa-xmark");

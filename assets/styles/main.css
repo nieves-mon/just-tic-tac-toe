@@ -155,13 +155,14 @@ header {
 .strike {
     position: absolute;
     border-radius: 5px;
-    transition: all ease 0.3s;
+    /* transition: all ease 0.3s; */
 }
 
 #horizontal {
     width: 0;
     height: 10px;
     background: black;
+    transition: width 0.3s;
 }
 
 #vertical {
@@ -170,6 +171,7 @@ header {
     width: 10px;
     height: 0;
     background: black;
+    transition: height 0.3s;
 }
 
 .diagonal {
@@ -177,6 +179,7 @@ header {
     height: 10px;
     transform-origin: left;
     background: black;
+    transition: width 0.3s;
 }
 
 #diagonal-left {
