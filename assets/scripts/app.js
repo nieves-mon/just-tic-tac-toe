@@ -24,8 +24,8 @@ const winningCombos = [
 ];
 
 const choosePopup = document.querySelector(".popup");
-const overlay = document.querySelector(".overlay");
-const main = document.querySelector(".main-container");
+const board = document.querySelector(".board-container");
+const btnContainer = document.querySelector(".btn-container");
 const chooseXBtn = document.querySelector("#player-x");
 const chooseOBtn = document.querySelector("#player-o");
 
@@ -39,8 +39,8 @@ function choosePlayer() {
     }
 
     choosePopup.classList.add("hide");
-    overlay.classList.add("hide");
-    main.classList.remove("hide");
+    board.classList.remove("hide");
+    btnContainer.classList.remove("hide");
 
     startGame();
 }
