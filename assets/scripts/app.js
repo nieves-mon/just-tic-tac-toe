@@ -31,13 +31,16 @@ const chooseXBtn = document.querySelector("#player-x");
 const chooseOBtn = document.querySelector("#player-o");
 
 let currentPlayer;
+let firstPlayer;
+let isOnePlayerMode = true;
 
 function choosePlayer() {
     if(this.id === "player-x") {
-        currentPlayer = "X";
+        firstPlayer = "X";
     } else {
-        currentPlayer= "O";
+        firstPlayer = "O";
     }
+    currentPlayer = firstPlayer;
 
     hide(choosePopup);
     unhide(board);
@@ -53,6 +56,7 @@ function startGame() {
     hide(previousBtn);
     hide(nextBtn);
 
+    currentPlayer = isOnePlayerMode ? firstPlayer : currentPlayer;
     header.textContent = currentPlayer + "'s Turn";
 
     for(let i = 0; i < cells.length; i++) {
@@ -88,6 +92,12 @@ function changePlayer() {
 
 function setMark() {
     const span = this.childNodes[1];
+
+    if(isOnePlayerMode &&
+        currentPlayer !== firstPlayer &&
+        Array.from(spans).indexOf(span) !== computerMove) {
+        return;
+    }
 
     if(span.classList.length === 2) {
         if(currentPlayer === "X") {
@@ -137,9 +147,63 @@ function playerTurn(cell) {
     }
 
     changePlayer();
-    header.textContent = currentPlayer + "'s Turn";
+
+    if(isOnePlayerMode && currentPlayer !== firstPlayer) {
+        header.textContent = "Computer's Turn";
+        computerTurn();
+    } else {
+        header.textContent = currentPlayer + "'s Turn";
+    }
 }
 
+/*
+    =========================================
+    AI
+    =========================================
+*/
+let difficulty = "Easy"
+let computerMove;
+
+function computerTurn() {
+    disableCells();
+
+    switch(difficulty) {
+        case "Easy":
+            computerMove = getRandomMove();
+            break;
+        case "Medium":
+            break;
+        case "Hard":
+    }
+
+    setTimeout(() => {
+        enableCells();
+        cells[computerMove].click();
+    }, 1000);
+}
+
+function getRandomMove() {
+    while(true) {
+        randomMove = Math.floor(Math.random() * 9);
+        let span = cells[randomMove].childNodes[1];
+
+        if(span.classList.length === 2) {
+            return randomMove;
+        }
+    }
+};
+
+function disableCells() {
+    for(let i = 0; i < cells.length; i++) {
+        cells[i].removeEventListener("click", setMark);
+    }
+}
+
+function enableCells() {
+    for(let i = 0; i < cells.length; i++) {
+        cells[i].addEventListener("click", setMark);
+    }
+}
 
 /*
     =========================================
