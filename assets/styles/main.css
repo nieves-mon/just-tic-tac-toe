@@ -17,6 +17,12 @@ body {
     justify-content: center;
 }
 
+.light {
+    --color: black;
+    --win-color: rgba(30, 218, 99, 0.918);
+    --bg: white;
+}
+
 /*
     =========================================
     Container
@@ -153,7 +159,7 @@ header {
     =========================================
 */
 .strike {
-    background: rgba(30, 218, 99, 0.918);
+    background: var(--win-color);
     position: absolute;
     border-radius: 5px;
 }
@@ -206,7 +212,6 @@ header {
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas: "text text"
                         "player-x player-o";
-    background: white;
     border-radius: 20px;
     padding: 2rem;
     opacity: 1;
@@ -253,23 +258,14 @@ header {
     font-size: 1em;
 }
 
-.disabled {
-    color: gray !important;
-}
-
 .btn:hover > span,
 .btn:hover > i,
 .btn:hover {
     cursor: pointer;
 }
 
-.disabled:hover > span,
-.disabled:hover > i,
-.disabled:hover {
-    cursor: default;
-}
-
-.btn:hover {
+.btn:hover,
+.btn:hover .btn-text {
     color: rgb(100, 100, 100);
 }
 
@@ -279,10 +275,11 @@ header {
     =========================================
 */
 .title,
-.btn span,
+.btn-text,
 #current,
 .popup-text,
 #greeting-text {
+    color: var(--color);
     font-family: 'Roboto Mono', monospace;
 }
 
@@ -308,20 +305,35 @@ header {
 
 .fa-xmark {
     font-size: 7rem;
+    transition: all 0.2s;
 }
 
 .fa-o {
     font-size: 6rem;
+    transition: all 0.2s;
 }
 
 .player-choose:hover > .fa-xmark{
-    font-size: 8rem !important;
+    font-size: 8rem;
 }
 
 .player-choose:hover > .fa-o  {
-    font-size: 7rem !important;
+    font-size: 7rem;
 }
 
 .hide {
-    display: none;
+    display: none !important;
+    transition: all 0.2s;
+}
+
+.disabled,
+.disabled .btn-text {
+    color: gray;
+}
+
+.disabled:hover .btn-text,
+.disabled:hover i,
+.disabled:hover {
+    cursor: default;
+    color: gray;
 }
