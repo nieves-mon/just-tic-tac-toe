@@ -252,6 +252,7 @@ restartBtn.addEventListener("click", restart);
 
 function previous() {
     if(Array.from(nextBtn.classList).includes("disabled")) {
+        unstrike(winningIdx);
         nextBtn.classList.remove("disabled");
         nextBtn.addEventListener("click", next);
     }
@@ -301,6 +302,7 @@ function next() {
     currentState = boardStates[currentStateIdx].flat();
 
     if(currentStateIdx === boardStates.length - 1) {
+        strike(winningIdx);
         nextBtn.classList.add("disabled");
         nextBtn.removeEventListener("click", next);
     }
