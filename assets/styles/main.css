@@ -29,10 +29,12 @@
 .mode {
     color: var(--color);
     font-size: 1.5rem;
+    transition: all 0.2s;
 }
 
 .mode:hover {
     cursor: pointer;
+    color: var(--hover-color)
 }
 
 body {
