@@ -159,6 +159,7 @@ header {
 }
 
 #horizontal {
+    left: 2%;
     width: 0;
     height: 10px;
     background: black;
@@ -166,8 +167,7 @@ header {
 }
 
 #vertical {
-    margin-top: auto;
-    margin-bottom: auto;
+    top: 2%;
     width: 10px;
     height: 0;
     background: black;
@@ -184,14 +184,14 @@ header {
 
 #diagonal-left {
     width: 0;
-    left: 0;
-    transform:  translate(3%, 120%) rotate(45deg);
+    left: 4.5%;
+    transform:  translate(0%, 120%) rotate(45deg);
 }
 
 #diagonal-right {
     width: 0;
-    right: 0;
-    transform:  translate(97%, 120%) rotate(135deg);
+    right: 4.5%;
+    transform:  translate(100%, 120%) rotate(135deg);
 }
 
 /*
