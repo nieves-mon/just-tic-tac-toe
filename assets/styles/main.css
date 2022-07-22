@@ -38,6 +38,7 @@ body {
 }
 
 .board-container {
+    position: relative;
     max-width: 400px;
     max-height: 400px;
     width: 72vw;
@@ -144,6 +145,50 @@ header {
 
 .left {
     border-left: none;
+}
+
+/*
+    =========================================
+    Strikethrough
+    =========================================
+*/
+.strike {
+    background: rgba(30, 218, 99, 0.918);
+    position: absolute;
+    border-radius: 5px;
+}
+
+#horizontal {
+    left: 2%;
+    width: 0;
+    height: 10px;
+    transition: width 0.3s;
+}
+
+#vertical {
+    top: 2%;
+    width: 10px;
+    height: 0;
+    transition: height 0.3s;
+}
+
+.diagonal {
+    top: 0;
+    height: 10px;
+    transform-origin: left;
+    transition: width 0.3s;
+}
+
+#diagonal-left {
+    width: 0;
+    left: 4.5%;
+    transform:  translate(0%, 120%) rotate(45deg);
+}
+
+#diagonal-right {
+    width: 0;
+    right: 4.5%;
+    transform:  translate(100%, 120%) rotate(135deg);
 }
 
 /*

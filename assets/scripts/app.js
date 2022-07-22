@@ -12,6 +12,7 @@ const boardStates = [
 let currentState;
 let currentStateIdx;
 
+let winningIdx;
 const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -159,6 +160,12 @@ function isPlayerWinner() {
         if(latestBoard[winningCombos[i][0]] === currentPlayer
             && latestBoard[winningCombos[i][1]] === currentPlayer
             && latestBoard[winningCombos[i][2]] === currentPlayer) {
+                spans[winningCombos[i][0]].style.color = "rgba(30, 218, 99, 0.918)";
+                spans[winningCombos[i][1]].style.color = "rgba(30, 218, 99, 0.918)";
+                spans[winningCombos[i][2]].style.color = "rgba(30, 218, 99, 0.918)";
+
+                winningIdx = i;
+                strike(winningIdx);
                 return true;
         }
     }
@@ -166,6 +173,63 @@ function isPlayerWinner() {
     return false;
 }
 
+
+/*
+    =========================================
+    Strikethrough
+    =========================================
+*/
+const vertical = document.querySelector("#vertical");
+const horizontal = document.querySelector("#horizontal");
+const diagonalLeft = document.querySelector("#diagonal-left");
+const diagonalRight = document.querySelector("#diagonal-right");
+
+function strike(index) {
+    switch(index) {
+        case 0:
+            horizontal.style.top = "15%";
+            horizontal.style.width = "95%";
+            break;
+        case 1:
+            horizontal.style.top = "49%";
+            horizontal.style.width = "95%";
+            break;
+        case 2:
+            horizontal.style.top = "82%";
+            horizontal.style.width = "95%";
+            break;
+        case 3:
+            vertical.style.left = "15%";
+            vertical.style.height = "95%";
+            break;
+        case 4:
+            vertical.style.left = "49%";
+            vertical.style.height = "95%";
+            break;
+        case 5:
+            vertical.style.left = "82%";
+            vertical.style.height = "95%";
+            break;
+        case 6:
+            diagonalLeft.style.width = "130%";
+            break;
+        case 7:
+            diagonalRight.style.width = "130%";
+            break;
+    }
+}
+
+function unstrike(index) {
+    if(index < 3) {
+        horizontal.style.width = 0;
+    } else if(index < 6) {
+        vertical.style.height = 0;
+    } else if(index === 6) {
+        diagonalLeft.style.width = 0;
+    } else {
+        diagonalRight.style.width = 0;
+    }
+}
 
 /*
     =========================================
@@ -178,9 +242,12 @@ const previousBtn = document.querySelector("#previous-btn");
 const nextBtn = document.querySelector("#next-btn");
 
 function restart() {
+    unstrike(winningIdx);
+
     boardStates.splice(1, boardStates.length - 1);
 
     spans.forEach((span) => {
+        span.style.color = null;
         span.classList.remove("fa-xmark");
         span.classList.remove("fa-o");
     });
@@ -191,6 +258,7 @@ restartBtn.addEventListener("click", restart);
 
 function previous() {
     if(Array.from(nextBtn.classList).includes("disabled")) {
+        unstrike(winningIdx);
         nextBtn.classList.remove("disabled");
         nextBtn.addEventListener("click", next);
     }
@@ -240,6 +308,7 @@ function next() {
     currentState = boardStates[currentStateIdx].flat();
 
     if(currentStateIdx === boardStates.length - 1) {
+        strike(winningIdx);
         nextBtn.classList.add("disabled");
         nextBtn.removeEventListener("click", next);
     }
