@@ -220,10 +220,12 @@ header {
 
 #player-x {
     grid-area: player-x;
+    height: 110px;
 }
 
 #player-o {
     grid-area: player-o;
+    height: 110px;
 }
 
 .player-choose {
@@ -251,20 +253,24 @@ header {
     font-size: 1em;
 }
 
+.disabled {
+    color: gray !important;
+}
+
 .btn:hover > span,
 .btn:hover > i,
 .btn:hover {
     cursor: pointer;
 }
 
-.disabled {
-    color: gray;
-}
-
 .disabled:hover > span,
 .disabled:hover > i,
 .disabled:hover {
     cursor: default;
+}
+
+.btn:hover {
+    color: rgb(100, 100, 100);
 }
 
 /*
@@ -306,6 +312,14 @@ header {
 
 .fa-o {
     font-size: 6rem;
+}
+
+.player-choose:hover > .fa-xmark{
+    font-size: 8rem !important;
+}
+
+.player-choose:hover > .fa-o  {
+    font-size: 7rem !important;
 }
 
 .hide {

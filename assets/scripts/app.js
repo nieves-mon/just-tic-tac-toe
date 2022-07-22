@@ -243,6 +243,7 @@ const nextBtn = document.querySelector("#next-btn");
 
 function restart() {
     unstrike(winningIdx);
+    winningIdx = null;
 
     boardStates.splice(1, boardStates.length - 1);
 
