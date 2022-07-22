@@ -160,7 +160,7 @@ function isPlayerWinner() {
         if(latestBoard[winningCombos[i][0]] === currentPlayer
             && latestBoard[winningCombos[i][1]] === currentPlayer
             && latestBoard[winningCombos[i][2]] === currentPlayer) {
-                winningCombo = i;
+                winningIdx = i;
                 strike(winningIdx);
                 return true;
         }

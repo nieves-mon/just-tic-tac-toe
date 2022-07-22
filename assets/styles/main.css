@@ -174,18 +174,19 @@ header {
 
 .diagonal {
     top: 0;
-    width: 0;
     height: 10px;
     transform-origin: left;
     background: black;
 }
 
 #diagonal-left {
+    width: 0;
     left: 0;
     transform:  translate(3%, 120%) rotate(45deg);
 }
 
 #diagonal-right {
+    width: 0;
     right: 0;
     transform:  translate(97%, 120%) rotate(135deg);
 }
