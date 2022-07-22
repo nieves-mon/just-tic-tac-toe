@@ -191,7 +191,7 @@ function strike(index) {
             horizontal.style.width = "95%";
             break;
         case 1:
-            horizontal.style.top = "48%";
+            horizontal.style.top = "49%";
             horizontal.style.width = "95%";
             break;
         case 2:
@@ -243,9 +243,6 @@ const nextBtn = document.querySelector("#next-btn");
 
 function restart() {
     unstrike(winningIdx);
-    // spans[winningCombos[winningIdx][0]].style.color = null;
-    // spans[winningCombos[winningIdx][2]].style.color = null;
-    // spans[winningCombos[winningIdx][1]].style.color = null;
 
     boardStates.splice(1, boardStates.length - 1);
 
