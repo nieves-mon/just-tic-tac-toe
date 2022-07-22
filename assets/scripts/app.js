@@ -160,9 +160,9 @@ function isPlayerWinner() {
         if(latestBoard[winningCombos[i][0]] === currentPlayer
             && latestBoard[winningCombos[i][1]] === currentPlayer
             && latestBoard[winningCombos[i][2]] === currentPlayer) {
-                spans[winningCombos[i][0]].style.color = "rgba(30, 218, 99, 0.918)";
-                spans[winningCombos[i][1]].style.color = "rgba(30, 218, 99, 0.918)";
-                spans[winningCombos[i][2]].style.color = "rgba(30, 218, 99, 0.918)";
+                spans[winningCombos[i][0]].classList.add("winningCombo");
+                spans[winningCombos[i][1]].classList.add("winningCombo");
+                spans[winningCombos[i][2]].classList.add("winningCombo");
 
                 winningIdx = i;
                 strike(winningIdx);
@@ -244,12 +244,13 @@ const nextBtn = document.querySelector("#next-btn");
 function restart() {
     unstrike(winningIdx);
     winningIdx = null;
+    previousBtn.classList.remove("disabled");
 
     boardStates.splice(1, boardStates.length - 1);
 
     spans.forEach((span) => {
         span.style.fontSize = null;
-        span.style.color = null;
+        span.classList.remove("winningCombo");
         span.classList.remove("fa-xmark");
         span.classList.remove("fa-o");
     });
@@ -318,6 +319,29 @@ function next() {
     }
 }
 
+
+/*
+    =========================================
+    Dark and Light Mode
+    =========================================
+*/
+const body = document.querySelector("body");
+const darkBtn = document.querySelector("#dark");
+const lightBtn = document.querySelector("#light");
+function changeMode() {
+    body.className = "";
+    if(this.id === "dark") {
+        body.classList.add("dark");
+        lightBtn.classList.remove("hide");
+        darkBtn.classList.add("hide");
+    } else {
+        body.classList.add("light");
+        darkBtn.classList.remove("hide");
+        lightBtn.classList.add("hide");
+    }
+}
+darkBtn.addEventListener("click", changeMode);
+lightBtn.addEventListener("click", changeMode);
 
 /*
     =========================================
