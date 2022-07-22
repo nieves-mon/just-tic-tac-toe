@@ -190,14 +190,12 @@ function restart() {
 restartBtn.addEventListener("click", restart);
 
 function previous() {
-    if(currentStateIdx === 0) {return}
-
     if(Array.from(nextBtn.classList).includes("disabled")) {
         nextBtn.classList.remove("disabled");
+        nextBtn.addEventListener("click", next);
     }
 
     const previousState = boardStates[currentStateIdx - 1].flat();
-    console.log(currentState);
 
     for(let i = 0; i < 9; i++) {
         if(currentState[i] !== previousState[i]) {
@@ -212,10 +210,18 @@ function previous() {
 
     currentStateIdx--;
     currentState = boardStates[currentStateIdx].flat();
+
+    if(currentStateIdx === 0) {
+        previousBtn.classList.add("disabled");
+        previousBtn.removeEventListener("click", previous);
+    }
 }
 
 function next() {
-    if(currentStateIdx === boardStates.length - 1) {return;}
+    if(Array.from(previousBtn.classList).includes("disabled")) {
+        previousBtn.classList.remove("disabled");
+        previousBtn.addEventListener("click", previous);
+    }
 
     const nextState = boardStates[currentStateIdx + 1].flat();
 
@@ -232,6 +238,11 @@ function next() {
 
     currentStateIdx++;
     currentState = boardStates[currentStateIdx].flat();
+
+    if(currentStateIdx === boardStates.length - 1) {
+        nextBtn.classList.add("disabled");
+        nextBtn.removeEventListener("click", next);
+    }
 }
 
 
