@@ -248,6 +248,7 @@ function restart() {
     boardStates.splice(1, boardStates.length - 1);
 
     spans.forEach((span) => {
+        span.style.fontSize = null;
         span.style.color = null;
         span.classList.remove("fa-xmark");
         span.classList.remove("fa-o");
@@ -268,10 +269,11 @@ function previous() {
 
     for(let i = 0; i < 9; i++) {
         if(currentState[i] !== previousState[i]) {
+            spans[i].style.fontSize = 0;
             if(currentState[i] === "X") {
-                spans[i].classList.remove("fa-xmark");
+                setTimeout(() => {spans[i].classList.remove("fa-xmark")}, 200);
             } else {
-                spans[i].classList.remove("fa-o");
+                setTimeout(() => {spans[i].classList.remove("fa-o")}, 200);
             }
             break;
         }
@@ -296,6 +298,7 @@ function next() {
 
     for(let i = 0; i < 9; i++) {
         if(currentState[i] !== nextState[i]) {
+            spans[i].style.fontSize = null;
             if(nextState[i] === "X") {
                 spans[i].classList.add("fa-xmark");
             } else {
