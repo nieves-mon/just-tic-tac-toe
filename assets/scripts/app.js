@@ -12,6 +12,7 @@ const boardStates = [
 let currentState;
 let currentStateIdx;
 
+let winningIdx;
 const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -159,6 +160,8 @@ function isPlayerWinner() {
         if(latestBoard[winningCombos[i][0]] === currentPlayer
             && latestBoard[winningCombos[i][1]] === currentPlayer
             && latestBoard[winningCombos[i][2]] === currentPlayer) {
+                winningCombo = i;
+                strike(winningIdx);
                 return true;
         }
     }
@@ -166,6 +169,50 @@ function isPlayerWinner() {
     return false;
 }
 
+
+/*
+    =========================================
+    Strikethrough
+    =========================================
+*/
+const vertical = document.querySelector("#vertical");
+const horizontal = document.querySelector("#horizontal");
+const diagonalLeft = document.querySelector("#diagonal-left");
+const diagonalRight = document.querySelector("#diagonal-right");
+
+function strike(index) {
+    switch(index) {
+        case 0:
+            horizontal.style.top = "15%";
+            horizontal.style.width = "95%";
+            break;
+        case 1:
+            horizontal.style.top = "48%";
+            horizontal.style.width = "95%";
+            break;
+        case 2:
+            horizontal.style.top = "82%";
+            horizontal.style.width = "95%";
+            break;
+        case 3:
+            vertical.style.left = "15%";
+            vertical.style.height = "95%";
+            break;
+        case 4:
+            vertical.style.left = "49%";
+            vertical.style.height = "95%";
+            break;
+        case 5:
+            vertical.style.left = "82%";
+            vertical.style.height = "95%";
+        case 6:
+            diagonalLeft.style.width = "130%";
+            break;
+        case 7:
+            diagonalRight.style.width = "130%";
+            break;
+    }
+}
 
 /*
     =========================================
