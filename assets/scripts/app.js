@@ -32,7 +32,10 @@ const chooseOBtn = document.querySelector("#player-o");
 
 let currentPlayer;
 let firstPlayer;
+
 let isOnePlayerMode = true;
+let difficulty = "Medium"
+let computerMove;
 
 function choosePlayer() {
     if(this.id === "player-x") {
@@ -64,6 +67,13 @@ function startGame() {
 
 function endGame() {
     disableCells();
+
+    if(isOnePlayerMode && currentPlayer !== firstPlayer) {
+        header.textContent = "Computer Wins!";
+    } else {
+        header.textContent = currentPlayer + " Wins!"
+    }
+
     changePlayer();
 
     currentStateIdx = boardStates.length - 1;
@@ -130,7 +140,6 @@ function playerTurn(cell) {
     updateBoard(Array.from(cells).indexOf(cell));
 
     if(isPlayerWinner()) {
-        header.textContent = currentPlayer + " Wins!";
         endGame();
         return;
     }
@@ -156,9 +165,6 @@ function playerTurn(cell) {
     AI
     =========================================
 */
-let difficulty = "Medium"
-let computerMove;
-
 function computerTurn() {
     disableCells();
 
@@ -175,7 +181,7 @@ function computerTurn() {
     setTimeout(() => {
         enableCells();
         cells[computerMove].click();
-    }, 1000);
+    }, 1500);
 }
 
 function getRandomMove() {
@@ -190,39 +196,71 @@ function getRandomMove() {
 }
 
 function getMoveMedium() {
+    const idealMoves = [];
+    const humanWinningMoves = [];
+
     for(let i = 0; i < 9; i++) {
-        if(spans[i].classList.length === 2 && isWinningMove(i)) {
-            return i;
+        if(spans[i].classList.length === 2) {
+            if(isWinningMove(i, currentPlayer)) {
+                return i;
+            }
+
+            if(isWinningMove(i, firstPlayer)) {
+                humanWinningMoves.push(i);
+            }
+
+            if(isIdealMove(i)) {
+                idealMoves.push(i);
+            }
         }
     }
 
-    return getRandomMove();
+    if(humanWinningMoves.length !== 0) {
+        return humanWinningMoves[Math.floor(Math.random() * humanWinningMoves.length)];
+    } else if(idealMoves.length !== 0){
+        console.log(idealMoves);
+        return idealMoves[Math.floor(Math.random() * idealMoves.length)];
+    } else {
+        return getRandomMove();
+    }
 }
 
-function isWinningMove(idx) {
+function isWinningMove(idx, mark) {
+    const latestBoard = boardStates[boardStates.length - 1].flat();
+    latestBoard[idx] = mark;
+
+    for(let i = 0; i < winningCombos.length; i++) {
+        if(latestBoard[winningCombos[i][0]] === mark
+            && latestBoard[winningCombos[i][1]] === mark
+            && latestBoard[winningCombos[i][2]] === mark) {
+                return true;
+        }
+    }
+    return false;
+}
+
+function isIdealMove(idx) {
     const latestBoard = boardStates[boardStates.length - 1].flat();
     latestBoard[idx] = currentPlayer;
 
-    for(let i = 0; i < winningCombos.length; i++) {
-        if(latestBoard[winningCombos[i][0]] === currentPlayer
-            && latestBoard[winningCombos[i][1]] === currentPlayer
-            && latestBoard[winningCombos[i][2]] === currentPlayer) {
+    const oneAndOnlyOne = arr => arr.filter(v => v === "").length == 1;
 
+    latestBoard[idx] = firstPlayer;
+    for(let i = 0; i < winningCombos.length; i++) {
+        const row = [latestBoard[winningCombos[i][0]], latestBoard[winningCombos[i][1]], latestBoard[winningCombos[i][2]]];
+        if(oneAndOnlyOne(row)) {
                 return true;
         }
     }
 
     latestBoard[idx] = firstPlayer;
     for(let i = 0; i < winningCombos.length; i++) {
-        if(latestBoard[winningCombos[i][0]] === firstPlayer
-            && latestBoard[winningCombos[i][1]] === firstPlayer
-            && latestBoard[winningCombos[i][2]] === firstPlayer) {
-
+        const row = [latestBoard[winningCombos[i][0]], latestBoard[winningCombos[i][1]], latestBoard[winningCombos[i][2]]];
+        if(oneAndOnlyOne(row)) {
                 return true;
         }
     }
-
-    return false;
+    return false
 }
 
 function disableCells() {
