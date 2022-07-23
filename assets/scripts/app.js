@@ -144,7 +144,7 @@ function playerTurn(cell) {
     }
 
     if(isDraw()) {
-        header.textContent = "It's a draw!";
+        header.textContent = "It's a tie!";
         endGame();
         return;
     }
