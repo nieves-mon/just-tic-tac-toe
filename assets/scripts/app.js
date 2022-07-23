@@ -329,19 +329,31 @@ const body = document.querySelector("body");
 const darkBtn = document.querySelector("#dark");
 const lightBtn = document.querySelector("#light");
 function changeMode() {
-    body.className = "";
-    if(this.id === "dark") {
-        body.classList.add("dark");
+    if(body.className === "light") {
+        localStorage.setItem("userMode", "dark");
+        body.className = ("dark");
         lightBtn.classList.remove("hide");
         darkBtn.classList.add("hide");
     } else {
-        body.classList.add("light");
+        localStorage.setItem("userMode", "light");
+        body.className = ("light");
         darkBtn.classList.remove("hide");
         lightBtn.classList.add("hide");
     }
 }
 darkBtn.addEventListener("click", changeMode);
 lightBtn.addEventListener("click", changeMode);
+
+function checkMode() {
+    if(localStorage.userMode === "undefined") {
+        localStorage.setItem("userMode", "light");
+    }
+    let userMode = localStorage.userMode;
+
+    if(userMode !== body.className) {
+        changeMode();
+    }
+}
 
 /*
     =========================================
@@ -357,3 +369,5 @@ function hide(element) {
     element.style.opacity = 0;
     setTimeout(() => {element.classList.add("hide")}, 500);
 }
+
+checkMode();
