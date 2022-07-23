@@ -59,16 +59,11 @@ function startGame() {
     currentPlayer = isOnePlayerMode ? firstPlayer : currentPlayer;
     header.textContent = currentPlayer + "'s Turn";
 
-    for(let i = 0; i < cells.length; i++) {
-        cells[i].addEventListener("click", setMark);
-    }
+    enableCells();
 }
 
 function endGame() {
-    for(let i = 0; i < cells.length; i++) {
-        cells[i].removeEventListener("click", setMark);
-    }
-
+    disableCells();
     changePlayer();
 
     currentStateIdx = boardStates.length - 1;
@@ -161,7 +156,7 @@ function playerTurn(cell) {
     AI
     =========================================
 */
-let difficulty = "Easy"
+let difficulty = "Medium"
 let computerMove;
 
 function computerTurn() {
@@ -172,6 +167,7 @@ function computerTurn() {
             computerMove = getRandomMove();
             break;
         case "Medium":
+            computerMove = getMoveMedium();
             break;
         case "Hard":
     }
@@ -191,7 +187,43 @@ function getRandomMove() {
             return randomMove;
         }
     }
-};
+}
+
+function getMoveMedium() {
+    for(let i = 0; i < 9; i++) {
+        if(spans[i].classList.length === 2 && isWinningMove(i)) {
+            return i;
+        }
+    }
+
+    return getRandomMove();
+}
+
+function isWinningMove(idx) {
+    const latestBoard = boardStates[boardStates.length - 1].flat();
+    latestBoard[idx] = currentPlayer;
+
+    for(let i = 0; i < winningCombos.length; i++) {
+        if(latestBoard[winningCombos[i][0]] === currentPlayer
+            && latestBoard[winningCombos[i][1]] === currentPlayer
+            && latestBoard[winningCombos[i][2]] === currentPlayer) {
+
+                return true;
+        }
+    }
+
+    latestBoard[idx] = firstPlayer;
+    for(let i = 0; i < winningCombos.length; i++) {
+        if(latestBoard[winningCombos[i][0]] === firstPlayer
+            && latestBoard[winningCombos[i][1]] === firstPlayer
+            && latestBoard[winningCombos[i][2]] === firstPlayer) {
+
+                return true;
+        }
+    }
+
+    return false;
+}
 
 function disableCells() {
     for(let i = 0; i < cells.length; i++) {
