@@ -67,13 +67,6 @@ function startGame() {
 
 function endGame() {
     disableCells();
-
-    if(isOnePlayerMode && currentPlayer !== firstPlayer) {
-        header.textContent = "Computer Wins!";
-    } else {
-        header.textContent = currentPlayer + " Wins!"
-    }
-
     changePlayer();
 
     currentStateIdx = boardStates.length - 1;
@@ -140,6 +133,12 @@ function playerTurn(cell) {
     updateBoard(Array.from(cells).indexOf(cell));
 
     if(isPlayerWinner()) {
+        if(isOnePlayerMode && currentPlayer !== firstPlayer) {
+            header.textContent = "Computer Wins!";
+        } else {
+            header.textContent = currentPlayer + " Wins!"
+        }
+
         endGame();
         return;
     }
